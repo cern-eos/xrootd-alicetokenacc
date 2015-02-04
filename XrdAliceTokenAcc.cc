@@ -30,6 +30,8 @@
 #include <fstream>
 #include <netinet/in.h>
 
+#include "XrdVersion.hh"
+XrdVERSIONINFO(XrdAccAuthorizeObject,"AliceTokenAcc");
 
 XrdSysError TkEroute(0,"AliceTokenAcc");
 XrdOucTrace TkTrace(&TkEroute);
