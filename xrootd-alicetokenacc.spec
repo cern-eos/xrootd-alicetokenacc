@@ -30,7 +30,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/etc/grid-security/xrootd/
 cp -av .authz/xrootd/* $RPM_BUILD_ROOT/etc/grid-security/xrootd
 cp -av /usr/lib64/libTokenAuthz.so.1 $RPM_BUILD_ROOT/usr/lib64/
-cp -av /usr/lib64/libTokenAuthz.so.1.0.0 $RPM_BUILD_ROOT/usr/lib64/
+cp -av /usr/lib64/libTokenAuthz.so.1.0.1 $RPM_BUILD_ROOT/usr/lib64/
 
 find $RPM_BUILD_ROOT \( -type f -o -type l \) -print \
     | sed "s#^$RPM_BUILD_ROOT/*#/#" > RPM-FILE-LIST
