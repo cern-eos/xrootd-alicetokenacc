@@ -1,9 +1,9 @@
 Summary: Alice Token Authorization Acc plugin
 Name: xrootd-alicetokenacc
-Version: 1.3.0
+Version: 1.3.1
 Release: 1
 License: none
-Group: CERN IT-DSS-TD
+Group: CERN IT-ST
 
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -41,13 +41,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f RPM-FILE-LIST
 %defattr(-,root,root,-)
-%attr(644, daemon, daemon) /etc/grid-security/xrootd/TkAuthz.Authorization
-%attr(400, daemon, daemon) /etc/grid-security/xrootd/privkey.pem
-%attr(400, daemon, daemon) /etc/grid-security/xrootd/pubkey.pem
+%attr(644, root, root) /etc/grid-security/xrootd/TkAuthz.Authorization
+%attr(444, root, root) /etc/grid-security/xrootd/privkey.pem
+%attr(444, root, root) /etc/grid-security/xrootd/pubkey.pem
 %doc
 
 
 %changelog
+* Fri Jan 27 2017 root <root@lxplus.cern.ch> - alicetokenacc-1.3.1
 * Fri Aug 22 2008 root <root@pcitsmd01.cern.ch> - alicetokenacc-1
 - Initial build.
+
 
