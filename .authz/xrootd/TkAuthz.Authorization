@@ -1,0 +1,7 @@
+EXPORT   PATH:/ VO:*     ACCESS:ALLOW CERT:*
+RULE     PATH:/ AUTHZ:delete|read|write|write-once| NOAUTHZ:| VO:*| CERT:IGNORE
+RULE     PATH:/eos/alice/user/ AUTHZ:| NOAUTHZ:delete|read|write|write-once| VO:*| CERT:IGNORE
+KEY VO:* PRIVKEY:/etc/grid-security/xrootd/privkey.pem PUBKEY:/etc/grid-security/xrootd/pubkey.pem
+
+
+
