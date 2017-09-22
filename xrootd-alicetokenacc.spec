@@ -13,9 +13,10 @@ Requires: xrootd-server >= 4.1.0
 BuildRequires: xrootd-private-devel >= 4.1.0
 BuildRequires: xrootd-devel >= 4.1.0
 BuildRequires: xrootd-server-devel >= 4.1.0
+BuildRequires: tokenauthz >= 1.1.8
+BuildRequires: openssl-devel, libxml2-devel, libcurl-devel
 
-#Requires: tokenauthz >= 1.1.8
-
+Requires: tokenauthz >= 1.1.8
 
 %description
 An authorization plugin for xrootd using the Alice Token authorization envelope.
@@ -29,8 +30,6 @@ make
 make install DESTDIR=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/etc/grid-security/xrootd/
 cp -av .authz/xrootd/* $RPM_BUILD_ROOT/etc/grid-security/xrootd
-cp -av /usr/lib64/libTokenAuthz.so.1 $RPM_BUILD_ROOT/usr/lib64/
-cp -av /usr/lib64/libTokenAuthz.so.1.0.1 $RPM_BUILD_ROOT/usr/lib64/
 
 find $RPM_BUILD_ROOT \( -type f -o -type l \) -print \
     | sed "s#^$RPM_BUILD_ROOT/*#/#" > RPM-FILE-LIST

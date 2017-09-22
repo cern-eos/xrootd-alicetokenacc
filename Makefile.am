@@ -21,11 +21,5 @@ EXTRA_DIST = configure.ac configure bootstrap.sh xrootd-alicetokenacc.spec .auth
 rpm:	dist
 	mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 	cp $(DIST_ARCHIVES) ~/rpmbuild/SOURCES/
-	rpmbuild -bb xrootd-alicetokenacc.spec
-
-rpmnodist:	
-	mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-	cp $(DIST_ARCHIVES) ~/rpmbuild/SOURCES/
-	rpmbuild -bb --buildroot /usr/src/redhat/SOURCES/ xrootd-alicetokenacc.spec
-
+	rpmbuild -bb --define "debug_package %{nil}" --define "_rpmdir ./RPMS/" --define "_build_name_fmt %%{NAME}-%%{VERSION}-%%{RELEASE}.%%{ARCH}.rpm" xrootd-alicetokenacc.spec
 
