@@ -1,0 +1,38 @@
+stages:
+  - build
+
+xrootd_alicetokenacc_cc7:
+  stage: build
+  image: gitlab-registry.cern.ch/linuxsupport/cc7-base
+  script:
+    - yum install --nogpg -y gcc-c++ make rpm-build automake autoconf libtool sssd-client sudo createrepo
+    - echo -e '[eos-depend]\nname=EOS dependencies\nbaseurl=http://storage-ci.web.cern.ch/storage-ci/eos/citrine-depend/el-7/x86_64/\ngpgcheck=0\nenabled=1\nexclude=xrootd*\n' >> /etc/yum.repos.d/eos-depend.repo
+    - yum-builddep --nogpgcheck --setopt=cern*.exclude=xrootd* -y xrootd-alicetokenacc.spec
+    - ./bootstrap.sh
+    - ./configure
+    - make rpm
+    - STORAGE_PATH=/eos/project/s/storage-ci/www/eos/citrine-depend/el-7/x86_64
+    - sudo -u stci -H mkdir -p $STORAGE_PATH
+    - sudo -u stci -H cp -f RPMS/*.rpm $STORAGE_PATH
+    - sudo -u stci -H createrepo --update -q $STORAGE_PATH
+  tags:
+    - docker-cc7
+  when: manual
+
+xrootd_alicetokenacc_slc6:
+  stage: build
+  image: gitlab-registry.cern.ch/linuxsupport/slc6-base
+  script:
+    - yum install --nogpg -y gcc-c++ make rpm-build tar automake autoconf libtool sssd-client sudo createrepo
+    - echo -e '[eos-depend]\nname=EOS dependencies\nbaseurl=http://storage-ci.web.cern.ch/storage-ci/eos/citrine-depend/el-6/x86_64/\ngpgcheck=0\nenabled=1\nexclude=xrootd*\n' >> /etc/yum.repos.d/eos-depend.repo
+    - yum-builddep --nogpgcheck --setopt=cern*.exclude=xrootd* -y xrootd-alicetokenacc.spec
+    - ./bootstrap.sh
+    - ./configure
+    - make rpm
+    - STORAGE_PATH=/eos/project/s/storage-ci/www/eos/citrine-depend/el-6/x86_64
+    - sudo -u stci -H mkdir -p $STORAGE_PATH
+    - sudo -u stci -H cp -f RPMS/*.rpm $STORAGE_PATH
+    - sudo -u stci -H createrepo --update -q $STORAGE_PATH
+  tags:
+    - docker-slc6
+  when: manual
