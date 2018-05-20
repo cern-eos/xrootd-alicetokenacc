@@ -2,6 +2,8 @@ AC_PREREQ(2.57)
 AC_INIT(xrootd-alicetokenacc, 1.3.1,[andreas.joachim.peters@cern.ch])
 AC_CONFIG_SRCDIR([XrdAliceTokenAcc.cc])
 
+AC_CONFIG_MACRO_DIRS([m4])
+
 AC_CANONICAL_TARGET
 
 case "$target_os" in
