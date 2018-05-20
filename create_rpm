@@ -17,5 +17,6 @@ sed -i "/Version:/c\Version: ${VER}" xrootd-alicetokenacc.spec_wip
 [[ -n "${REL}" ]] && sed -i "/Release:/c\Release: ${REL}%{?dist}" xrootd-alicetokenacc.spec_wip
 mv xrootd-alicetokenacc.spec_wip $HOME/rpmbuild/SPECS/xrootd-alicetokenacc.spec
 
+cd $HOME/rpmbuild/SPECS
 rpmbuild -ba xrootd-alicetokenacc.spec
 
