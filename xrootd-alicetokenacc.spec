@@ -39,7 +39,7 @@ mkdir -p $RPM_BUILD_ROOT/etc/grid-security/xrootd/
 cp -av .authz/xrootd/* $RPM_BUILD_ROOT/etc/grid-security/xrootd
 
 find $RPM_BUILD_ROOT \( -type f -o -type l \) -print \
-    | sed "s#^$RPM_BUILD_ROOT/*#/#" > RPM-FILE-LIST
+    | sed "s#^$RPM_BUILD_ROOT/*#/#" | grep -v "/etc/grid-security/xrootd" > RPM-FILE-LIST
 
 %clean
 rm -rf $RPM_BUILD_ROOT
