@@ -47,9 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f RPM-FILE-LIST
 %defattr(-,root,root,-)
-%attr(644, root, root) /etc/grid-security/xrootd/TkAuthz.Authorization
-%attr(444, root, root) /etc/grid-security/xrootd/privkey.pem
-%attr(444, root, root) /etc/grid-security/xrootd/pubkey.pem
+%config %attr(644, root, root) /etc/grid-security/xrootd/TkAuthz.Authorization
+%config %attr(444, root, root) /etc/grid-security/xrootd/privkey.pem
+%config %attr(444, root, root) /etc/grid-security/xrootd/pubkey.pem
 %doc
 
 
