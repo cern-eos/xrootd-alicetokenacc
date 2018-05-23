@@ -2,6 +2,7 @@ Summary: Alice Token Authorization Acc plugin
 Name: xrootd-alicetokenacc
 Version: 1.3.1
 Release: 1%{?dist}
+Epoch: 1
 License: none
 Group: CERN IT-ST
 
