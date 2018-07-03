@@ -1,7 +1,8 @@
 Summary: Alice Token Authorization Acc plugin
 Name: xrootd-alicetokenacc
 Version: 1.3.1
-Release: 1
+Release: 1%{?dist}
+Epoch: 1
 License: none
 Group: CERN IT-ST
 
@@ -14,25 +15,32 @@ BuildRequires: xrootd-private-devel >= 4.1.0
 BuildRequires: xrootd-devel >= 4.1.0
 BuildRequires: xrootd-server-devel >= 4.1.0
 BuildRequires: tokenauthz >= 1.1.8
-BuildRequires: openssl-devel, libxml2-devel, libcurl-devel
+BuildRequires: libxml2-devel, libcurl-devel
 
 Requires: tokenauthz >= 1.1.8
+
+%if %{?fedora}%{!?fedora:0} >= 21
+BuildRequires: compat-openssl10-devel
+%else
+BuildRequires: openssl-devel
+%endif
 
 %description
 An authorization plugin for xrootd using the Alice Token authorization envelope.
 
 %prep
 %setup -q
+./bootstrap.sh
 
 %build
-./configure --prefix=/usr --libdir=/usr/lib64 --includedir=/usr/include
-make 
+./configure --prefix=%{_prefix} --libdir=%{_libdir} --includedir=%{_includedir}
+make
 make install DESTDIR=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/etc/grid-security/xrootd/
 cp -av .authz/xrootd/* $RPM_BUILD_ROOT/etc/grid-security/xrootd
 
 find $RPM_BUILD_ROOT \( -type f -o -type l \) -print \
-    | sed "s#^$RPM_BUILD_ROOT/*#/#" > RPM-FILE-LIST
+    | sed "s#^$RPM_BUILD_ROOT/*#/#" | grep -v "/etc/grid-security/xrootd" > RPM-FILE-LIST
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -40,9 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f RPM-FILE-LIST
 %defattr(-,root,root,-)
-%attr(644, root, root) /etc/grid-security/xrootd/TkAuthz.Authorization
-%attr(444, root, root) /etc/grid-security/xrootd/privkey.pem
-%attr(444, root, root) /etc/grid-security/xrootd/pubkey.pem
+%config(noreplace) %attr(644, root, root) /etc/grid-security/xrootd/TkAuthz.Authorization
+%config(noreplace) %attr(444, root, root) /etc/grid-security/xrootd/privkey.pem
+%config(noreplace) %attr(444, root, root) /etc/grid-security/xrootd/pubkey.pem
 %doc
 
 
